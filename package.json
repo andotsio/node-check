@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "scripts": {
+    "build": "nuxt build",
+    "dev": "nuxt dev",
+    "generate": "nuxt generate",
+    "preview": "nuxt preview",
+    "pm2": "PM2_HOME='.pm3' pm2 start ./ecosystem.config.js",
+    "restart": "PM2_HOME='.pm3' pm2 restart all",
+    "stop": "PM2_HOME='.pm3' pm2 stop all"
+  },
+  "devDependencies": {
+    "@nuxt/webpack-builder": "npm:@nuxt/webpack-builder-edge@latest",
+    "nuxt": "3.0.0-rc.4"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "less": "^4.1.3"
+  }
+}
