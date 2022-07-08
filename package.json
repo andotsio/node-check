@@ -5,9 +5,9 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "pm2": "PM2_HOME='.pm3' pm2 start ./ecosystem.config.js",
-    "restart": "PM2_HOME='.pm3' pm2 restart all",
-    "stop": "PM2_HOME='.pm3' pm2 stop all"
+    "pm2": "PM2_HOME='.pm4' pm2 start ./ecosystem.config.js",
+    "restart": "PM2_HOME='.pm4' pm2 restart all",
+    "stop": "PM2_HOME='.pm4' pm2 stop all"
   },
   "devDependencies": {
     "@nuxt/webpack-builder": "npm:@nuxt/webpack-builder-edge@latest",

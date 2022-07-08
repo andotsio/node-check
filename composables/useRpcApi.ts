@@ -17,15 +17,17 @@ export const useRpcApi = () => {
             return;
         }
         klay_chainID(baseUrl);
-        klay_client(baseUrl);
-        klay_protocolVersion(baseUrl);
-        klay_peer(baseUrl);
     }
 
     const klay_chainID = async (baseUrl) => {
         const {data} = await useFetch(`/api/klay_chainID`, {params: {baseUrl}});
         if (data.value?.result) {
             chainInfo.value.chainId = +(data.value?.result).toString(10);
+            klay_client(baseUrl);
+            klay_protocolVersion(baseUrl);
+            klay_peer(baseUrl);
+            klay_blockNumber(baseUrl);
+            klay_main_blockNumber();
         } else {
             showToast("connect error", "error")
         }
@@ -46,8 +48,14 @@ export const useRpcApi = () => {
         chainInfo.value.peerCount = +(data.value?.result).toString(10);
     }
 
-    const admin_nodeInfo = async (baseUrl) => {
-        await useFetch(`/api/admin_nodeInfo`, {params: {baseUrl}});
+    const klay_blockNumber = async (baseUrl) => {
+        const {data} = await useFetch(`/api/klay_blockNumber`, {params: {baseUrl}});
+        chainInfo.value.nodeBlockNumber = +(data.value?.result).toString(10);
+    }
+
+    const klay_main_blockNumber = async () => {
+        const {data} = await useFetch(`/api/klay_blockNumber`);
+        chainInfo.value.mostRecentBlockNumber = +(data.value?.result).toString(10);
     }
 
     return {

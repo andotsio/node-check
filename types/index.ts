@@ -12,4 +12,6 @@ interface ChainInfo {
     port: string;
     metricsPort: string;
     peerCount: number;
+    nodeBlockNumber: number;
+    mostRecentBlockNumber: number;
 }

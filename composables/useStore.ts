@@ -19,5 +19,7 @@ export const useChainInfoStore = () => useState<ChainInfo>('chainInfo', () => ({
     host: '',
     port: '',
     metricsPort: '',
-    peerCount: 0
+    peerCount: 0,
+    nodeBlockNumber: 0,
+    mostRecentBlockNumber: 0,
 }));

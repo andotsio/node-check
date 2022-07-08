@@ -37,6 +37,18 @@
             {{ chainInfo.protocolVersion || '-' }}
           </div>
         </div>
+        <div class="item">
+          <div class="key">Latest Block Height</div>
+          <div class="value">
+            {{ chainInfo.mostRecentBlockNumber || '-' }}
+          </div>
+        </div>
+        <div class="item">
+          <div class="key">Node Block Height</div>
+          <div class="value">
+            {{ chainInfo.nodeBlockNumber || '-' }}
+          </div>
+        </div>
       </div>
     </section>
     <section class="node-data" v-if="chainInfo.chainId">
