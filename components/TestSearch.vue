@@ -2,7 +2,7 @@
   <div class="search-container">
     <div class="search-box">
       <div class="form-group">
-        <label for="ip" class="form-label">APTOS NODE IP/DOMAIN</label>
+        <label for="ip" class="form-label">KLAYTN NODE IP/DOMAIN</label>
         <input id="ip" class="form-input" v-model="rpcConfig.host"/>
       </div>
       <div class="form-group w200">
