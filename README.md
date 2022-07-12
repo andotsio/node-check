@@ -46,3 +46,6 @@ Production server with pm2:
 ```bash
 npm run pm2
 ```
+
+Website:
+http://159.69.23.83:3002/

@@ -1,8 +1,8 @@
 import {useState} from "#app";
 
 export const useRpcConfigStore = () => useState<RpcConfig>('rpcConfig', () => ({
-    host: '65.21.116.85',
-    port: '8551',
+    host: '',
+    port: '',
     metricsPort: ''
 }));
 

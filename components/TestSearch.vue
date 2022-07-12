@@ -5,7 +5,7 @@
         <input id="ip" class="form-input" placeholder="KLAYTN NODE IP/DOMAIN" v-model="rpcConfig.host"/>
       </div>
       <div class="form-group w200">
-        <input id="port" class="form-input" placeholder="API PORT" v-model="rpcConfig.port"/>
+        <input id="port" class="form-input" placeholder="31271" v-model="rpcConfig.port"/>
       </div>
       <button class="form-button" @click="connectRpcHandle">CONNECT</button>
     </div>
