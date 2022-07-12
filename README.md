@@ -47,5 +47,5 @@ Production server with pm2:
 npm run pm2
 ```
 
-Website:
-http://159.69.23.83:3002/
+Visit Website:
+http://ip:3002/
