@@ -2,7 +2,7 @@
   <NuxtLayout>
     <NuxtPage/>
     <Toast/>
-    <div class="back-top" id="backTop" @click="goTop"></div>
+    <!--<div class="back-top" id="backTop" @click="goTop"></div>-->
   </NuxtLayout>
 </template>
 <script>
@@ -37,10 +37,10 @@ export default {
     };
   },
   mounted() {
-    window.addEventListener('scroll', this.handleScroll);
+    // window.addEventListener('scroll', this.handleScroll);
   },
   destroyed() {
-    document.removeEventListener('scroll', this.handleScroll);
+    // document.removeEventListener('scroll', this.handleScroll);
   },
 };
 </script>

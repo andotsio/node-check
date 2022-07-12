@@ -2,56 +2,68 @@
   <div class="node">
     <section class="node-info">
       <h2 class="title">Node Info</h2>
-      <div class="item-list">
-        <div class="item">
-          <div class="key">Node Host</div>
-          <div class="value">
-            {{ chainInfo.host || '-' }}
+      <div class="item-list-wrap">
+        <div class="item-list">
+          <div class="item">
+            <div class="icon node-host"></div>
+            <div class="key">Node Host</div>
+            <div class="value">
+              {{ chainInfo.host || '-' }}
+            </div>
+          </div>
+          <div class="item">
+            <div class="icon chain-id"></div>
+            <div class="key">Chain ID</div>
+            <div class="value" v-if="chainInfo.chainId">
+              <span class="net-type">{{ chainInfo.chainId === 8217 ? 'Mainnet' : 'Testnet' }}</span>
+              {{ chainInfo.chainId }}
+            </div>
+            <div class="value" v-else>-</div>
+          </div>
+          <div class="item">
+            <div class="icon latest-height"></div>
+            <div class="key">Latest Block Height</div>
+            <div class="value">
+              {{ chainInfo.mostRecentBlockNumber || '-' }}
+            </div>
+          </div>
+          <div class="item">
+            <div class="icon protocol"></div>
+            <div class="key">Protocol Version</div>
+            <div class="value">
+              {{ chainInfo.protocolVersion || '-' }}
+            </div>
           </div>
         </div>
-        <div class="item">
-          <div class="key">Connect Status</div>
-          <div class="value" v-if="chainInfo.chainId">
-            {{ chainInfo.chainId ? 'Connected' : 'DisConnected' }}
-            <span class="node-status" :class="{green: chainInfo.chainId, red: !chainInfo.chainId}"></span>
+        <div class="item-line"></div>
+        <div class="item-list">
+          <div class="item">
+            <div class="icon connect-status"></div>
+            <div class="key">Connect Status</div>
+            <div class="value" v-if="chainInfo.chainId">
+              <span class="node-status" :class="{green: chainInfo.chainId, red: !chainInfo.chainId}"></span>
+              {{ chainInfo.chainId ? 'Connected' : 'DisConnected' }}
+            </div>
+            <div class="value" v-else>-</div>
           </div>
-          <div class="value" v-else>-</div>
-        </div>
-        <div class="item">
-          <div class="key">Chain ID</div>
-          <div class="value" v-if="chainInfo.chainId">
-            <span class="net-type">{{ chainInfo.chainId === 8217 ? 'Mainnet' : 'Testnet' }}</span>
-            {{ chainInfo.chainId }}
+          <div class="item">
+            <div class="icon client"></div>
+            <div class="key">Client</div>
+            <div class="value">
+              {{ chainInfo.client || '-' }}
+            </div>
           </div>
-          <div class="value" v-else>-</div>
-        </div>
-        <div class="item">
-          <div class="key">Client</div>
-          <div class="value">
-            {{ chainInfo.client || '-' }}
-          </div>
-        </div>
-        <div class="item">
-          <div class="key">Protocol Version</div>
-          <div class="value">
-            {{ chainInfo.protocolVersion || '-' }}
-          </div>
-        </div>
-        <div class="item">
-          <div class="key">Latest Block Height</div>
-          <div class="value">
-            {{ chainInfo.mostRecentBlockNumber || '-' }}
-          </div>
-        </div>
-        <div class="item">
-          <div class="key">Node Block Height</div>
-          <div class="value">
-            {{ chainInfo.nodeBlockNumber || '-' }}
+          <div class="item">
+            <div class="icon node-height"></div>
+            <div class="key">Node Block Height</div>
+            <div class="value">
+              {{ chainInfo.nodeBlockNumber || '-' }}
+            </div>
           </div>
         </div>
       </div>
     </section>
-    <section class="node-data" v-if="chainInfo.chainId">
+    <section class="node-data">
       <h2 class="title">Realtime node data</h2>
       <div class="node-data-list">
         <div class="data-card">
@@ -63,78 +75,56 @@
             </div>
             <div class="card-row">
               <div class="card-title">Node Health</div>
-              <div class="card-value">no data</div>
+              <div class="card-value" v-if="chainInfo.mostRecentBlockNumber">
+                <span v-if="chainInfo.mostRecentBlockNumber - chainInfo.nodeBlockNumber > 10">false</span>
+                <span class="green" v-else>true</span>
+              </div>
+              <div class="card-value" v-else>
+                no data
+              </div>
             </div>
             <div class="card-row">
               <div class="card-title">Timestamp</div>
-              <div class="card-value">{{ now }}</div>
-            </div>
-            <div class="card-row">
-              <div class="card-title">Ledger Version</div>
-              <div class="card-value">no data</div>
-            </div>
-            <div class="card-row">
-              <div class="card-title">Epoch</div>
-              <div class="card-value">no data</div>
+              <div class="card-value">{{ nowTime }}</div>
             </div>
             <div class="card-row">
               <div class="card-title">Peer Count</div>
-              <div class="card-value">{{ chainInfo.peerCount }}</div>
+              <div class="card-value">{{ chainInfo.peerCount || 'no data' }}</div>
             </div>
             <div class="card-row">
               <div class="card-title">Chain ID</div>
-              <div class="card-value">{{ chainInfo.chainId }}</div>
+              <div class="card-value">{{ chainInfo.chainId || 'no data' }}</div>
             </div>
           </div>
         </div>
         <div class="data-card">
-          <h3 class="data-title">SYNC / CONSENSUS STATUS</h3>
+          <h3 class="data-title">SYNC STATUS</h3>
           <div class="card-box">
-            <h3 class="sub-title">SYNC STATE</h3>
+            <div class="card-row">
+              <div class="card-title">Synced</div>
+              <div class="card-value" v-if="chainInfo.chainId">
+                {{ chainInfo.synced }}
+              </div>
+              <div class="card-value" v-else>
+                no data
+              </div>
+            </div>
             <div class="card-row" v-for="item of syncState">
               <div class="card-title">{{ item.name }}</div>
               <div class="card-value">no data</div>
             </div>
-            <h3 class="sub-title">CONSENSUS</h3>
-            <div class="card-row" v-for="item of consensus">
-              <div class="card-title">{{ item.name }}</div>
-              <div class="card-value">no data</div>
-            </div>
           </div>
         </div>
         <div class="data-card">
-          <h3 class="data-title">CONNECTIONS</h3>
-          <div class="card-row" v-for="item of connections">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-value">no data</div>
+          <h3 class="data-title">TXPOOL</h3>
+          <div class="card-row">
+            <div class="card-title">pending</div>
+            <div class="card-value">{{ chainInfo.pending || 'no data' }}</div>
           </div>
-        </div>
-        <div class="data-card">
-          <h3 class="data-title">REQUESTS / RESPONSES</h3>
-          <div class="card-row" v-for="item of requestsResponses">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-value">no data</div>
-          </div>
-        </div>
-        <div class="data-card">
-          <h3 class="data-title">LEDGER STORAGE</h3>
-          <div class="card-row" v-for="item of ledgerStorage">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-value">no data</div>
-          </div>
-        </div>
-        <div class="data-card">
-          <h3 class="data-title">TRANSACTIONS</h3>
-          <div class="card-row" v-for="item of transactions">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-value">no data</div>
-          </div>
-        </div>
-        <div class="data-card">
-          <h3 class="data-title">MEMPOOL TRANSACTIONS</h3>
-          <div class="card-row" v-for="item of mempoolTransactions">
-            <div class="card-title">{{ item.name }}</div>
-            <div class="card-value">no data</div>
+          <div class="card-row">
+            <div class="card-title">queued</div>
+            <div class="card-value" v-if="chainInfo.pending">{{ chainInfo.queued }}</div>
+            <div class="card-value" v-else>no data</div>
           </div>
         </div>
         <div class="data-card">
@@ -149,64 +139,107 @@
   </div>
 </template>
 <script setup>
-import {ledgerInfo, syncState, consensus, connections, requestsResponses, ledgerStorage, transactions, mempoolTransactions, systemInfo} from '../assets/data/data';
+import {syncState, systemInfo} from '../assets/data/data';
 import {useChainInfoStore} from '../composables/useStore';
 
 const chainInfo = useChainInfoStore();
-const now = new Date().toGMTString();
+
+const now = new Date();
+const nowTime = `${now.getFullYear()}-${now.getMonth() + 1}-${now.getDate()} ${now.getHours()}:${now.getMinutes()}:${now.getSeconds()}`;
 </script>
 <style lang="less" scoped>
 .node {
-  padding: 0 100px 100px;
+  padding: 0 40px 40px;
 }
 
 .title {
-  margin-top: 50px;
-  margin-bottom: 10px;
-  font-size: 14px;
+  padding: 20px 0;
+  color: rgba(181, 183, 188, 1);
+  font-size: 16px;
+  font-weight: bold;
 }
 
-.node-info {
-  margin: 0 auto;
-}
-
-.node-status {
-  margin: 0 auto;
+.item-list-wrap {
+  display: flex;
+  padding: 40px 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
 }
 
 .item-list {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  border: 1px solid #e5e5e5;
+  flex: 1;
+}
+
+.item-line {
+  margin: 0 40px;
+  width: 2px;
+  background: #f5f5f5;
 }
 
 .item {
   flex: 1;
+  height: 70px;
   display: flex;
-  padding: 10px 20px;
-  color: #666666;
+  align-items: center;
+  padding: 0 20px;
+  color: rgba(147, 149, 156, 1);
+  font-size: 16px;
+  border-bottom: 1px solid #e5e5e5;
 
-  &:last-child {
-    border-bottom: 0;
+  .icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+
+  .node-host {
+    background: url("~/assets/images/nodeHost.svg") no-repeat left center;
+  }
+
+  .chain-id {
+    background: url("~/assets/images/chainId.svg") no-repeat left center;
+  }
+
+  .latest-height {
+    background: url("~/assets/images/latestHeight.svg") no-repeat left center;
+  }
+
+  .protocol {
+    background: url("~/assets/images/protocol.svg") no-repeat left center;
+  }
+
+  .connect-status {
+    background: url("~/assets/images/connectStatus.svg") no-repeat left center;
+  }
+
+  .client {
+    background: url("~/assets/images/client.svg") no-repeat left center;
+  }
+
+  .node-height {
+    background: url("~/assets/images/nodeHeight.svg") no-repeat left center;
   }
 }
 
 .value {
   flex: 1;
-  text-align: right;
+  display: flex;
+  align-items: center;
+  justify-content: end;
   padding-left: 20px;
-  color: #333333;
+  color: rgba(48, 48, 48, 1);
+  font-weight: bold;
 
   .node-status {
     display: inline-block;
     width: 8px;
     height: 8px;
-    margin-left: 10px;
+    margin-right: 10px;
     border-radius: 50%;
 
     &.green {
-      background: #00ff00;
+      background: rgba(49, 185, 158, 1);
     }
 
     &.red {
@@ -215,8 +248,16 @@ const now = new Date().toGMTString();
   }
 
   .net-type {
-    color: #07d;
-    margin-right: 20px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 70px;
+    height: 25px;
+    font-size: 12px;
+    color: #ffffff;
+    background: rgba(49, 185, 158, 1);
+    border-radius: 3px;
+    margin-right: 10px;
   }
 }
 
@@ -225,20 +266,20 @@ const now = new Date().toGMTString();
   flex-wrap: wrap;
 
   .data-card {
-    border-radius: 4px;
-    box-shadow: 0 2px 5px 0 rgb(0 0 0 / 30%);
+    border: 1px solid rgba(219, 220, 221, 1);
+    border-radius: 6px;
     font-size: 12px;
-    margin-right: 10px;
-    margin-bottom: 10px;
+    margin-right: 20px;
+    margin-bottom: 20px;
   }
 
   .data-title {
-    height: 50px;
-    line-height: 50px;
-    padding-left: 10px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+    color: rgba(51, 51, 51, 1);
     font-size: 14px;
-    background: #0077dd;
-    color: #fff;
+    padding: 0 10px;
   }
 
   .sub-title {
@@ -246,7 +287,8 @@ const now = new Date().toGMTString();
   }
 
   .card-box {
-    padding: 20px 10px 10px;
+    margin: 0 10px;
+    padding: 0 10px 50px;
   }
 
   .card-row {
@@ -254,19 +296,26 @@ const now = new Date().toGMTString();
     padding: 0 10px;
     height: 40px;
     line-height: 40px;
+    color: rgba(147, 149, 156, 1);
     border-bottom: 1px solid #e5e5e5;
   }
 
   .card-value {
     flex: 1;
     text-align: right;
+    color: rgba(48, 48, 48, 1);
+    font-weight: bold;
+
+    .green {
+      color: rgba(49, 185, 158, 1);
+    }
   }
 }
 
 
 @media (min-width: 1460px) {
   .data-card {
-    width: calc((100% - 30px) / 4);
+    width: calc((100% - 60px) / 4);
 
     &:nth-child(4n) {
       margin-right: 0;
@@ -276,7 +325,7 @@ const now = new Date().toGMTString();
 
 @media (min-width: 1000px) and (max-width: 1460px) {
   .data-card {
-    flex: 0 0 calc((100% - 20px) / 3);
+    flex: 0 0 calc((100% - 40px) / 3);
 
     &:nth-child(3n) {
       margin-right: 0;
@@ -286,7 +335,7 @@ const now = new Date().toGMTString();
 
 @media (min-width: 0px) and (max-width: 1000px) {
   .data-card {
-    flex: 0 0 calc((100% - 10px) / 2);
+    flex: 0 0 calc((100% - 20px) / 2);
 
     &:nth-child(2n) {
       margin-right: 0;

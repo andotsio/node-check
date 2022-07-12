@@ -1,8 +1,8 @@
 import {useState} from "#app";
 
 export const useRpcConfigStore = () => useState<RpcConfig>('rpcConfig', () => ({
-    host: '',
-    port: '',
+    host: '65.21.116.85',
+    port: '8551',
     metricsPort: ''
 }));
 
@@ -22,4 +22,7 @@ export const useChainInfoStore = () => useState<ChainInfo>('chainInfo', () => ({
     peerCount: 0,
     nodeBlockNumber: 0,
     mostRecentBlockNumber: 0,
+    synced: true,
+    pending: 0,
+    queued: 0,
 }));

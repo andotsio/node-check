@@ -3,7 +3,7 @@
     <h1 class="title">
       <span class="chain">BlockPI</span>
       <span class="mode">TESTER</span>
-      <span class="version">v1.0.0</span>
+      <span class="version">V1.0.0</span>
     </h1>
 <!--    <div class="theme-switch">-->
 <!--      <span class="theme-box">-->
@@ -18,12 +18,9 @@
 .header {
   display: flex;
   width: 100%;
-  height: 64px;
+  height: 102px;
   padding: 0 20px;
-  background-color: rgb(245, 245, 245);
-  color: rgba(0, 0, 0, 0.87);
-  box-shadow: rgb(0 0 0 / 20%) 0 2px 4px -1px, rgb(0 0 0 / 14%) 0px 4px 5px 0px, rgb(0 0 0 / 12%) 0px 1px 10px 0px;
-  transition: box-shadow 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  background-color: #fff;
 }
 
 .title {
@@ -31,27 +28,22 @@
   align-items: center;
   font-size: 22px;
   flex: 1;
+  font-weight: normal;
 
   .chain {
-    font-weight: 700;
-    letter-spacing: -1px;
-    display: flex;
-    align-items: center;
-    position: relative;
-    color: rgb(3, 26, 97);
+    font-weight: bold;
+    color: rgba(51, 51, 51, 1);
   }
 
   .mode {
-    display: inline-block;
-    font-weight: 400;
-    color: rgb(1, 104, 250);
-    margin: 0 5px;
+    margin-left: 10px;
+    color: rgba(51, 51, 51, 1);
+    font-size: 14px;
   }
 
   .version {
-    color: rgb(236, 108, 3);
-    font-size: 15px;
-    font-weight: 700;
+    color: rgba(51, 51, 51, 1);
+    font-size: 14px;
   }
 }
 

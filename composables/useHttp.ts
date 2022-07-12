@@ -2,7 +2,9 @@ import axios from 'axios';
 
 export const useHttp = () => {
     const httpService = async (baseURL = "https://public-node-api.klaytnapi.com/v1/cypress", rpcBody) => {
-        console.log(baseURL)
+        if(rpcBody.method === 'txpool_status'){
+            console.log(baseURL)
+        }
         try {
             let httpService = axios.create({
                 baseURL,
@@ -32,6 +34,7 @@ export const useHttp = () => {
 
             // @ts-ignore
             const {data, latency} = await httpService.post('', rpcBody);
+            console.log(data);
             return {...data, latency}
         } catch (error) {
             console.log(baseURL, error);

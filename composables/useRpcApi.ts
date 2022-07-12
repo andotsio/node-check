@@ -28,6 +28,8 @@ export const useRpcApi = () => {
             klay_peer(baseUrl);
             klay_blockNumber(baseUrl);
             klay_main_blockNumber();
+            klay_syncing(baseUrl);
+            txpool_status(baseUrl);
         } else {
             showToast("connect error", "error")
         }
@@ -48,14 +50,27 @@ export const useRpcApi = () => {
         chainInfo.value.peerCount = +(data.value?.result).toString(10);
     }
 
+    const klay_main_blockNumber = async () => {
+        const {data} = await useFetch(`/api/klay_blockNumber`);
+        chainInfo.value.mostRecentBlockNumber = +(data.value?.result).toString(10);
+    }
+
     const klay_blockNumber = async (baseUrl) => {
         const {data} = await useFetch(`/api/klay_blockNumber`, {params: {baseUrl}});
         chainInfo.value.nodeBlockNumber = +(data.value?.result).toString(10);
     }
 
-    const klay_main_blockNumber = async () => {
-        const {data} = await useFetch(`/api/klay_blockNumber`);
-        chainInfo.value.mostRecentBlockNumber = +(data.value?.result).toString(10);
+    const klay_syncing = async (baseUrl) => {
+        const {data} = await useFetch(`/api/klay_syncing`, {params: {baseUrl}});
+        chainInfo.value.synced = !!(data.value?.result);
+    }
+
+    const txpool_status = async (baseUrl) => {
+        const {data} = await useFetch(`/api/txpool_status`, {params: {baseUrl}});
+        if(data.value?.result?.pending){
+            chainInfo.value.pending = +(data.value?.result?.pending).toString(10);
+            chainInfo.value.queued = +(data.value?.result?.queued).toString(10);
+        }
     }
 
     return {

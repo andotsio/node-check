@@ -33,7 +33,7 @@ export const ledgerInfo = [
     },
 ];
 export const syncState = [
-    {name: 'Synced', value: ''},
+    // {name: 'Synced', value: ''},
     {name: 'Applied Tx count', value: ''},
     {name: 'Executed Tx', value: ''},
 ];
@@ -72,11 +72,6 @@ export const transactions = [
     {name: 'VM per block sum', value: ''},
     {name: 'Gas Usage Sum', value: ''},
     {name: 'Gas Usage Count', value: ''},
-];
-
-export const mempoolTransactions = [
-    {name: 'Transaction Sum', value: ''},
-    {name: 'Transaction count', value: ''},
 ];
 
 export const systemInfo = [

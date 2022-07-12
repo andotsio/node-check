@@ -2,8 +2,10 @@
   <div class="layout_container">
     <main class="layout_main">
       <TestHeader/>
-      <TestSearch/>
-      <TestInfo/>
+      <div class="layout_body">
+        <TestSearch/>
+        <TestInfo/>
+      </div>
     </main>
   </div>
 </template>
@@ -36,5 +38,13 @@ useHead({
   display: flex;
   flex-direction: column;
   width: 100%;
+}
+
+.layout_body {
+  max-width: 1640px;
+  margin: 30px 140px 100px;
+  background: rgba(255, 255, 255, 1);
+  border: 1px solid rgba(224, 223, 223, 1);
+  border-radius: 12px;
 }
 </style>

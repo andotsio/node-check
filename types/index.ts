@@ -14,4 +14,7 @@ interface ChainInfo {
     peerCount: number;
     nodeBlockNumber: number;
     mostRecentBlockNumber: number;
+    synced: boolean;
+    pending: number;
+    queued: number;
 }
